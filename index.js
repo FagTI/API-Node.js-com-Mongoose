@@ -24,6 +24,8 @@ app.use("/person", personRoutes);
 // rota inicial / endpoint
 app.get('/' , (req, res) => {
     //mostrar req
+    //console.log(req);
+
     res.json({
         message: "OI Express!",
     }) 
