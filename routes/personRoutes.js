@@ -152,4 +152,32 @@ router.patch("/:id", async(req, res) => {
 
 });
 
+router.delete("/:id", async(req, res) => {
+
+    const id = req.params.id;
+
+    const person = await Person.findOne({_id: id});
+
+    if(!person) {
+        res.status(422).json({ //o status http 422 significa que há algum erro semântico na requisição
+            error: "Usuário não encontrado."
+        });
+        return;
+    }
+
+    try {
+        await Person.deleteOne({_id: id});
+
+        res.status(200).json({
+            message: "Usuário removido com sucesso."
+        });
+        
+    } catch (e) {
+        res.status(500).json({ // o status http 500 significa Erro Interno no Servidor
+            error: e
+        });
+    }
+
+});
+
 module.exports = router;
